@@ -69,12 +69,51 @@ class MyCustomFormState extends State<MyCustomForm> {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(content: Text('Processing Data')),
                   );
+
+                  Future.delayed(const Duration(milliseconds: 250), () {
+                    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+
+                    Navigator.push(context, MaterialPageRoute(
+                        builder: (context) => const SuccessScreen(),
+                      ),
+                    );
+                  });
                 }
               },
               child: const Text('Submit'),
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class SuccessScreen extends StatelessWidget {
+  const SuccessScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Success')),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text(
+              'Signup Successful!',
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                // Navigate back to the form screen
+                Navigator.pop(context);
+              },
+              child: const Text('Go Back'),
+            ),
+          ],
+        ),
       ),
     );
   }
