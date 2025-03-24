@@ -51,6 +51,7 @@ class MyCustomFormState extends State<MyCustomForm> {
         children: [
           TextFormField(
             decoration: const InputDecoration(
+              border: OutlineInputBorder(),
               hintText: "First",
               labelText: "First",
             ),
@@ -62,8 +63,10 @@ class MyCustomFormState extends State<MyCustomForm> {
               return null;
             },
           ),
+          SizedBox(height: 10),
           TextFormField(
             decoration: const InputDecoration(
+              border: OutlineInputBorder(),
               hintText: "Last",
               labelText: "Last",
             ),
@@ -75,8 +78,10 @@ class MyCustomFormState extends State<MyCustomForm> {
               return null;
             },
           ),
+          SizedBox(height: 10),
           TextFormField(
             decoration: const InputDecoration(
+              border: OutlineInputBorder(),
               hintText: "Email",
               labelText: "Email",
             ),
@@ -88,35 +93,41 @@ class MyCustomFormState extends State<MyCustomForm> {
               return null;
             },
           ),
+          SizedBox(height: 10),
 
           TextFormField(
             decoration: const InputDecoration(
+              border: OutlineInputBorder(),
               hintText: "Contact No.",
               labelText: "Contact No.",
             ),
             // The validator receives the text that the user has entered.
             validator: (value) {
-              if (value == null || value.isEmpty || !RegExp(r"r'/^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/'").hasMatch(value)) {
+              if (value == null || value.isEmpty || !RegExp(r"^\(?(\d{3})\)?[\s-]?(\d{3})[\s-]?(\d{4})$").hasMatch(value)) {
                 return 'Please enter valid phone number ';
               }
               return null;
             },
           ),
+          SizedBox(height: 10),
           TextFormField(
             decoration: const InputDecoration(
+              border: OutlineInputBorder(),
               hintText: "Aadhar No.",
               labelText: "Aadhar No.",
             ),
             // The validator receives the text that the user has entered.
             validator: (value) {
-              if (value == null || value.isEmpty || !RegExp(r"d{4} d{4} d{4}").hasMatch(value)) {
+              if (value == null || value.isEmpty || !RegExp(r"\d{4}[\s]?\d{4}[\s]?\d{4}").hasMatch(value)) {
                 return 'Please enter valid aadhar number ex. 1111 2222 3333 4444';
               }
               return null;
             },
           ),
+          SizedBox(height: 10),
           TextFormField(
             decoration: const InputDecoration(
+              border: OutlineInputBorder(),
               hintText: "Address",
               labelText: "Address",
             ),
@@ -128,30 +139,31 @@ class MyCustomFormState extends State<MyCustomForm> {
               return null;
             },
           ),
-
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16),
-            child: ElevatedButton(
-              onPressed: () {
-                // Validate returns true if the form is valid, or false otherwise.
-                if (_formKey.currentState!.validate()) {
-                  // If the form is valid, display a snackbar. In the real world,
-                  // you'd often call a server or save the information in a database.
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Processing Data')),
-                  );
-
-                  Future.delayed(const Duration(milliseconds: 250), () {
-                    ScaffoldMessenger.of(context).hideCurrentSnackBar();
-
-                    Navigator.push(context, MaterialPageRoute(
-                        builder: (context) => const SuccessScreen(),
-                      ),
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              child: ElevatedButton(
+                onPressed: () {
+                  // Validate returns true if the form is valid, or false otherwise.
+                  if (_formKey.currentState!.validate()) {
+                    // If the form is valid, display a snackbar. In the real world,
+                    // you'd often call a server or save the information in a database.
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Processing Data')),
                     );
-                  });
-                }
-              },
-              child: const Text('Submit'),
+
+                    Future.delayed(const Duration(milliseconds: 250), () {
+                      ScaffoldMessenger.of(context).hideCurrentSnackBar();
+
+                      Navigator.push(context, MaterialPageRoute(
+                          builder: (context) => const SuccessScreen(),
+                        ),
+                      );
+                    });
+                  }
+                },
+                child: const Text('Submit'),
+              ),
             ),
           ),
         ],
