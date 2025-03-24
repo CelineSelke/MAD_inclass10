@@ -109,7 +109,7 @@ class MyCustomFormState extends State<MyCustomForm> {
             ),
             // The validator receives the text that the user has entered.
             validator: (value) {
-              if (value == null || value.isEmpty || !RegExp(r"d{4} d{4} d{4}").hasMatch(value)) {
+              if (value == null || value.isEmpty || !RegExp(r"^[2-9]{1}[0-9]{3}\\s[0-9]{4}\\s[0-9]{4}$").hasMatch(value)) {
                 return 'Please enter valid aadhar number ex. 1111 2222 3333 4444';
               }
               return null;
