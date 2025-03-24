@@ -40,6 +40,7 @@ class MyCustomFormState extends State<MyCustomForm> {
   // Note: This is a GlobalKey<FormState>,
   // not a GlobalKey<MyCustomFormState>.
   final _formKey = GlobalKey<FormState>();
+  TextEditingController _controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -94,7 +95,6 @@ class MyCustomFormState extends State<MyCustomForm> {
             },
           ),
           SizedBox(height: 10),
-
           TextFormField(
             decoration: const InputDecoration(
               border: OutlineInputBorder(),
@@ -107,6 +107,26 @@ class MyCustomFormState extends State<MyCustomForm> {
                 return 'Please enter valid phone number ';
               }
               return null;
+            },
+          ),
+          SizedBox(height: 10),
+          TextFormField(
+            controller: _controller,
+            decoration: const InputDecoration(
+              hintText: "Date of Birth (MM/DD/YY)",
+              labelText: "Date of Birth",
+            ),
+            onTap: () async{
+              FocusScope.of(context).requestFocus(new FocusNode());
+
+              DateTime? date = await showDatePicker(context: context, 
+              firstDate: DateTime(DateTime.now().year - 120), 
+              lastDate:  DateTime.now(), 
+              );
+              if(date != null){
+                _controller.text = date.month.toString() + "/" + date.day.toString() + "/" + date.year.toString().substring(2,4);
+              }
+
             },
           ),
           SizedBox(height: 10),
