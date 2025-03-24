@@ -113,6 +113,7 @@ class MyCustomFormState extends State<MyCustomForm> {
           TextFormField(
             controller: _controller,
             decoration: const InputDecoration(
+              border: OutlineInputBorder(),
               hintText: "Date of Birth (MM/DD/YY)",
               labelText: "Date of Birth",
             ),
@@ -128,6 +129,12 @@ class MyCustomFormState extends State<MyCustomForm> {
               }
 
             },
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter valid Date of Birth';
+              }
+              return null;
+            },
           ),
           SizedBox(height: 10),
           TextFormField(
@@ -139,7 +146,7 @@ class MyCustomFormState extends State<MyCustomForm> {
             // The validator receives the text that the user has entered.
             validator: (value) {
               if (value == null || value.isEmpty || !RegExp(r"\d{4}[\s]?\d{4}[\s]?\d{4}").hasMatch(value)) {
-                return 'Please enter valid aadhar number ex. 1111 2222 3333 4444';
+                return 'Please enter valid aadhar number ex. 1111 2222 3333';
               }
               return null;
             },
